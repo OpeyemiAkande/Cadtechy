@@ -1,0 +1,37 @@
+.animateDiv {
+  width: 150px;
+  height: 200px;
+  margin: 20px 20px 20px 40px;
+  background-color: blue;
+  animation: changeStyle 600ms ease-in-out infinite;
+}
+
+@keyframes changeStyle {
+  0% {
+    width: 150px;
+    height: 200px;
+    margin: 20px 20px 20px 40px;
+    background-color: blue;
+  }
+
+  10% {
+    width: 150px;
+    height: 200px;
+    margin: 30px 20px 20px 90px;
+    background-color: blue;
+  }
+
+  50% {
+    width: 100px;
+    height: 200px;
+    margin: 70px 20px 20px 90px;
+    background-color: blue;
+  }
+
+  0% {
+    width: 150px;
+    height: 200px;
+    margin: 20px 20px 20px 40px;
+    background-color: blue;
+  }
+}

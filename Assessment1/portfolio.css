@@ -1,0 +1,13 @@
+body {
+  font-family: sans-serif;
+  background-color: #070707;
+  color: #f7f7f7;
+  margin: auto;
+}
+
+.hero {
+  display: flex;
+}
+.tagline {
+  color: #f2f2f2;
+}
