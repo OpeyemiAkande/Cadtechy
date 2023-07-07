@@ -12,13 +12,12 @@ class Calculator {
   };
 
   division = (num1, num2) => {
-    try {
-      num1 / num2;
-    } catch (err) {
-      console.log("You can't divide by 0");
+    if (num2 === 0) {
+      console.log("Can't divide by 0");
+      return;
+    } else {
+      return num1 / num2;
     }
-
-    // return quotient;
   };
 }
 
