@@ -12,11 +12,14 @@ class Calculator {
   };
 
   division = (num1, num2) => {
-    if (num2 === 0) {
-      console.log("Can't divide by 0");
-      return;
-    } else {
-      return num1 / num2;
+    try {
+      if (num2 === 0) {
+        console.log("Can't divide by 0");
+      } else {
+        return num1 / num2;
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 }
@@ -25,4 +28,4 @@ const myCalculator = new Calculator();
 console.log(myCalculator.multiplication(2, 3));
 console.log(myCalculator.addition(2, 3));
 console.log(myCalculator.subtraction(2, 3));
-console.log(myCalculator.division(2, 0));
+console.log(myCalculator.division(2, 1));
