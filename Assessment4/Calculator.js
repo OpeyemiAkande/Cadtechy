@@ -1,25 +1,21 @@
 class Calculator {
-  addition = (num1, num2) => {
-    return num1 + num2;
+  addition = (a, b) => {
+    return a + b;
   };
 
-  subtraction = (num1, num2) => {
-    return num1 - num2;
+  subtraction = (a, b) => {
+    return a - b;
   };
 
-  multiplication = (num1, num2) => {
-    return num1 * num2;
+  multiplication = (a, b) => {
+    return a * b;
   };
 
-  division = (num1, num2) => {
+  division = (a, b) => {
     try {
-      if (num2 === 0) {
-        console.log("Can't divide by 0");
-      } else {
-        return num1 / num2;
-      }
-    } catch (err) {
-      console.log(err);
+      if (b !== 0) return a / b;
+    } catch (error) {
+      console.log(error, "Can't divide by 0");
     }
   };
 }
@@ -28,4 +24,4 @@ const myCalculator = new Calculator();
 console.log(myCalculator.multiplication(2, 3));
 console.log(myCalculator.addition(2, 3));
 console.log(myCalculator.subtraction(2, 3));
-console.log(myCalculator.division(2, 1));
+console.log(myCalculator.division(2, 0));
