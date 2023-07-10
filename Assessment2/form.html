@@ -9,10 +9,10 @@
   </head>
   <body>
     <div class="container">
-      <h1>Please Login</h1>
+      <h1 id="changeText">Please Login</h1>
       <form>
         <div class="form-control">
-          <input type="text" required />
+          <input type="text" id="email" required />
           <label>Email</label>
         </div>
         <div class="form-control">
@@ -20,10 +20,20 @@
           <label>Password</label>
         </div>
 
-        <button class="btn">Login</button>
+        <button class="btn" id="submit">Login</button>
         <p class="text">Don't have an account? <a href="#">Register</a></p>
       </form>
     </div>
-    <script src="script.js"></script>
   </body>
+  <script>
+    document.getElementById("changeText").addEventListener("click", () => {
+      document.getElementById("changeText").textContent = "changed text";
+      console.log(document.getElementById("changeText").value);
+    });
+
+    document.getElementById("submit").addEventListener("click", () => {
+      const email = document.getElementById("email").value;
+      if (email === "") alert("Complete the required field");
+    });
+  </script>
 </html>

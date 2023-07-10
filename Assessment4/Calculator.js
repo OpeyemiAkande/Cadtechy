@@ -13,9 +13,10 @@ class Calculator {
 
   division = (a, b) => {
     try {
-      if (b !== 0) return a / b;
+      if (b === 0) return "Number is not divisible by 0";
+      return a / b;
     } catch (error) {
-      console.log(error, "Can't divide by 0");
+      console.log(error.message);
     }
   };
 }
@@ -24,4 +25,4 @@ const myCalculator = new Calculator();
 console.log(myCalculator.multiplication(2, 3));
 console.log(myCalculator.addition(2, 3));
 console.log(myCalculator.subtraction(2, 3));
-console.log(myCalculator.division(2, 0));
+console.log(myCalculator.division(24, "0"));
