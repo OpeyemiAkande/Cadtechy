@@ -2,30 +2,40 @@ import { useState, useEffect } from "react";
 import "./App.css";
 const App = () => {
   // const [text, setText] = useState("Hello World");
-  const [result, setResult] = useState("0");
+  const [tempDisplay, setTempDisplay] = useState("0");
   const [firstOperand, setFirstOperand] = useState(0);
 
   const handleCalculator = (char) => {
-    if (result === "0") {
-      setResult(char);
-      // console.log("set result to nothing");
+    if (tempDisplay === "0") {
+      setTempDisplay(char);
+      // console.log("set tempDisplay to nothing");
     } else if (char === "C") {
-      setResult("0");
+      setTempDisplay("0");
     } else {
-      setResult(result + char);
+      setTempDisplay(tempDisplay + char);
     }
     // console.log(+char);
   };
 
+  // useEffect{() => {
+
+  // }, []}
+
   const handleAddition = (result) => {
-    setFirstOperand(result);
-    console.log(result);
+    if (!firstOperand) {
+      setFirstOperand(result);
+      setTempDisplay("");
+    } else {
+      setFirstOperand(() => +firstOperand + +result);
+      setTempDisplay("");
+    }
+    console.log(firstOperand);
   };
 
   return (
     <div className="calculator">
       <div className="display">
-        <div className="display-content">{result}</div>
+        <div className="display-content">{tempDisplay}</div>
       </div>
 
       <div className="layout">
@@ -114,7 +124,7 @@ const App = () => {
         >
           3
         </div>
-        <div className="operators" onClick={() => handleAddition(result)}>
+        <div className="operators" onClick={() => handleAddition(tempDisplay)}>
           +
         </div>
         <div
