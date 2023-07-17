@@ -1,41 +1,72 @@
-import { useState, useEffect } from "react";
+import { useState, useRef } from "react";
 import "./App.css";
+
 const App = () => {
-  // const [text, setText] = useState("Hello World");
-  const [tempDisplay, setTempDisplay] = useState("0");
-  const [firstOperand, setFirstOperand] = useState(0);
+  const [result, setResult] = useState("0");
+  const [firstOperand, setFirstOperand] = useState(null);
+  const display = useRef(0);
+  const operator = useRef("");
 
   const handleCalculator = (char) => {
-    if (tempDisplay === "0") {
-      setTempDisplay(char);
-      // console.log("set tempDisplay to nothing");
+    // console.log("click");
+    if (result === "0") {
+      setResult(char);
     } else if (char === "C") {
-      setTempDisplay("0");
+      setResult("0");
+      display.current = "0";
+      setFirstOperand(null);
     } else {
-      setTempDisplay(tempDisplay + char);
+      setResult(result + char);
     }
-    // console.log(+char);
   };
 
-  // useEffect{() => {
+  const operateOnOperands = () => {
+    if (operator.current === "+") {
+      setFirstOperand(+result + +firstOperand);
+      display.current = +result + +firstOperand;
+    } else if (operator.current === "-") {
+      setFirstOperand(+firstOperand - +result);
+      display.current = +firstOperand - +result;
+    } else if (operator.current === "/") {
+      setFirstOperand(parseFloat(+firstOperand) / parseFloat(+result));
+      display.current = parseFloat(+firstOperand) / parseFloat(+result);
+    } else if (operator.current === "X") {
+      setFirstOperand(+firstOperand * +result);
+      display.current = +firstOperand * +result;
+    } else if (operator.current === "%") {
+      setFirstOperand(+firstOperand % +result);
+      display.current = +firstOperand % +result;
+    }
 
-  // }, []}
+    setResult("");
+  };
 
-  const handleAddition = (result) => {
+  const handleOperation = (result, operation) => {
     if (!firstOperand) {
       setFirstOperand(result);
-      setTempDisplay("");
+      display.current = result;
+      operator.current = operation;
+      setResult("");
+    } else if (result === "") {
+      operator.current = operation;
     } else {
-      setFirstOperand(() => +firstOperand + +result);
-      setTempDisplay("");
+      operateOnOperands();
+      operator.current = operation;
     }
-    console.log(firstOperand);
   };
+
+  const handleEquals = () => {
+    operateOnOperands();
+  };
+
+  const handleNegation = () => setResult(-1 * result);
 
   return (
     <div className="calculator">
       <div className="display">
-        <div className="display-content">{tempDisplay}</div>
+        <div className="display-content">
+          {result !== "" && result !== "C" ? result : display.current}
+        </div>
       </div>
 
       <div className="layout">
@@ -47,9 +78,21 @@ const App = () => {
         >
           C
         </div>
-        <div className="modifying-operator">+/-</div>
-        <div className="modifying-operator">%</div>
-        <div className="operators">/</div>
+        <div className="modifying-operator" onClick={handleNegation}>
+          +/-
+        </div>
+        <div
+          className="modifying-operator"
+          onClick={(e) => handleOperation(result, e.target.outerText)}
+        >
+          %
+        </div>
+        <div
+          className="operators"
+          onClick={(e) => handleOperation(result, e.target.outerText)}
+        >
+          /
+        </div>
         <div
           className="numbers"
           onClick={(e) => {
@@ -74,7 +117,12 @@ const App = () => {
         >
           9
         </div>
-        <div className="operators">X</div>
+        <div
+          className="operators"
+          onClick={(e) => handleOperation(result, e.target.outerText)}
+        >
+          X
+        </div>
         <div
           className="numbers"
           onClick={(e) => {
@@ -99,7 +147,12 @@ const App = () => {
         >
           6
         </div>
-        <div className="operators">-</div>
+        <div
+          className="operators"
+          onClick={(e) => handleOperation(result, e.target.outerText)}
+        >
+          -
+        </div>
         <div
           className="numbers"
           onClick={(e) => {
@@ -124,7 +177,10 @@ const App = () => {
         >
           3
         </div>
-        <div className="operators" onClick={() => handleAddition(tempDisplay)}>
+        <div
+          className="operators"
+          onClick={(e) => handleOperation(result, e.target.outerText)}
+        >
           +
         </div>
         <div
@@ -144,7 +200,9 @@ const App = () => {
         >
           .
         </div>
-        <div className="operators">=</div>
+        <div className="operators" onClick={handleEquals}>
+          =
+        </div>
       </div>
     </div>
   );
